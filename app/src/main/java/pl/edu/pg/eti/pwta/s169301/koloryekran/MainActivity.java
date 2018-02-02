@@ -268,10 +268,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void Calosc(View v){
         Bitmap bmpC = textureView.getBitmap();
-        int startXC = bmpC.getWidth()/2;
+        /*int startXC = bmpC.getWidth()/2;
         int startYC = bmpC.getHeight()/2;
         int endXC = startXC + 200;
-        int endYC = startYC + 200;
+        int endYC = startYC + 200;*/
+        int startXC = 0;
+        int startYC = 0;
+        int endXC = bmpC.getWidth();
+        int endYC = bmpC.getHeight();
+
 
         String color = colorDetector.detectColor(bmpC, startXC, endXC, startYC, endYC);
         Toast.makeText(MainActivity.this, color, Toast.LENGTH_SHORT).show();

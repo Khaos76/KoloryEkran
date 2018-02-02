@@ -3,18 +3,28 @@ package pl.edu.pg.eti.pwta.s169301.koloryekran;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.util.Log;
 
 import java.util.ArrayList;
 
+
 public class ColorDetector {
 
-    private int bialy, czarny, czerwony, zielony, zolty,rozowy,pomaranczowy,niebieski= 0;
+    private int bialy, czarny, czerwony, zielony, zolty,rozowy,pomaranczowy,niebieski;
 
     ArrayList<Kolorowo> kolory = new ArrayList<>();
 
 
     public String detectColor(Bitmap bmp, int startX, int endX, int startY, int endY) {
 
+        bialy =0;
+        czarny =0;
+        czerwony = 0;
+        zielony = 0;
+        zolty = 0;
+        rozowy =0;
+        pomaranczowy = 0;
+        niebieski = 0;
         for (int x = startX; x < endX; x++) {
             for (int y = startY; y < endY; y++) {
                 int rgb;
@@ -55,13 +65,13 @@ public class ColorDetector {
 
             }
         }
-
+        addToList();
         return getMaxColor();
 
     }
 
     private void addToList(){
-
+        kolory.clear();
         kolory.add(new Kolorowo("Biały",bialy));
         kolory.add(new Kolorowo("Czarny",czarny));
         kolory.add(new Kolorowo("Żółty",zolty));
@@ -75,18 +85,20 @@ public class ColorDetector {
 
     private String getMaxColor() {
 
-
-        addToList();
         int max = 0;
+
         String colorBest =" ";
         for(int i =0; i< kolory.size(); i++){
             Kolorowo aktualny = kolory.get(i);
+            Log.i("kolor ", aktualny.getNazwa()+" " + Integer.toString(aktualny.getIlosc()));
             if(aktualny.getIlosc() > max){
                 max = aktualny.getIlosc();
                 colorBest = aktualny.getNazwa();
             }
-
         }
+
+
+        Log.i("best ", colorBest+" " + Integer.toString(max));
         return colorBest;
     }
 
@@ -103,11 +115,15 @@ public class ColorDetector {
             return this.Ilosc;
         }
 
+        public int setIlosc(int a){ return this.Ilosc = a;  }
+
         public String getNazwa(){
             return  this.Nazwa;
         }
 
  }
+
+
 
 
 }
